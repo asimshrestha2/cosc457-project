@@ -1,6 +1,8 @@
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.*;
 
@@ -81,7 +83,51 @@ public class SignUpUI extends JFrame implements ActionListener{
 		String cmd = ae.getActionCommand();
 		System.out.println(cmd);
 		if(cmd.equals("signupmain")){
+			DBConnection db = new DBConnection();
+			Boolean allowE = false;
+			String emailTextS = emailText.getText()
+					, passwordTextS = passwordText.getText()
+					, cpasswordTextS = cpasswordText.getText()
+					, fNameS = fName.getText()
+					, midInitialS = midInitial.getText()
+					, lNameS = lName.getText()
+					, adstreetS = adstreet.getText()
+					, adcityS = adcity.getText()
+					, adzipS = adzip.getText()
+					, adStateS = adState.getText()
+					, phoneNumberS = phoneNumber.getText()
+					, addPhoneNumberS = addPhoneNumber.getText()
+					, birthDateS = birthDate.getText()
+					, anniDateS = anniDate.getText();
 			
+			
+			if(emailText.getText() != "" &&
+			   passwordText.getText() != "" &&
+			   cpasswordText.getText().equals(passwordText.getText()) &&
+			   fName.getText() != "" && midInitial.getText() != "" && lName.getText() != "" &&
+			   adstreet.getText() != "" && adcity.getText() != "" && adzip.getText() != "" && adState.getText() != "" &&
+			   phoneNumber.getText() != "" && addPhoneNumber.getText() != "" && 
+			   birthDate.getText() != "" && anniDate.getText() != ""){
+				allowE = true;
+			}
+			
+			if(allowE){
+				try {
+					db.executeUpdate("INSERT INTO Cust (`Fname`, `Lname`, `MiddleInt`, `Street`, `City`, `Zip`, `State`, `Phone1`, `Phone2`, `Email`, `DOB`, `RewardTot`)"
+							+ " VALUES ('"+fNameS+"', '" + lNameS +"', '"+midInitialS+"', '"+adstreetS+"',"
+							+ " '"+adcityS+"', '"+adzipS+"', '"+adStateS+"', '"+phoneNumberS+"', '"+addPhoneNumberS+"', '"+emailTextS+"', '"+birthDateS+"', '0');");
+					ResultSet rels = db.executeQuary("select Customer_ID from Cust where Email='"+ emailTextS +"';");
+					
+					String userID = null;
+			        if(rels.next()){
+		        	   userID = rels.getString(1);
+		        	}
+					
+					db.executeUpdate("INSERT INTO Clogin(`Customer_ID`, `Password`) VALUES('"+ userID +"','" + passwordTextS + "')");
+				} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }

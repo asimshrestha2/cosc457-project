@@ -23,4 +23,12 @@ public class DBConnection {
         ResultSet results = queryStatement.executeQuery(quary);
         return results;
 	}
+	
+	public void executeUpdate(String quary) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
+		Object newInstance;
+        newInstance = Class.forName("com.mysql.jdbc.Driver").newInstance();
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3360/kbride1db", userName, password);
+        PreparedStatement update = connection.prepareStatement(quary);
+        update.executeUpdate();
+	}
 }
