@@ -37,7 +37,7 @@ public class Dbstart extends JFrame implements ActionListener{
 	
 	public Dbstart() {
 		// TODO Auto-generated method stub
-		super("Simple GUI");
+		super("Paramount Perks");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //setPreferredSize(new Dimension(500, 500));
 
@@ -47,8 +47,8 @@ public class Dbstart extends JFrame implements ActionListener{
         setLayout(new BorderLayout(5,5));
         inputPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         // Add a label and a button
-        userText = new JTextField(8);
-        passWord = new JPasswordField(8);
+        userText = new JTextField(12);
+        passWord = new JPasswordField(12);
         JButton loginBtn = new JButton("Login");
         JButton signupBtn = new JButton("Sign Up");
         errorL = new JLabel(" ", SwingConstants.CENTER);
@@ -94,6 +94,7 @@ public class Dbstart extends JFrame implements ActionListener{
         add(errorL, BorderLayout.PAGE_END);
         
         pack();
+        setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -117,10 +118,13 @@ public class Dbstart extends JFrame implements ActionListener{
 						rels.last();
 				        int size = rels.getRow();
 				        rels.beforeFirst();
-						System.out.println(size);
+				        String userID = null;
+				        if(rels.next()){
+			        	   userID = rels.getString(1);
+			        	}
 				        if(size == 1){
 							dispose();
-							new CustomerGUI(userText.getText());
+							new CustomerGUI(userText.getText(), userID);
 						} else {
 							errorL.setText("Username or password is Incorrect.");
 						}
@@ -153,6 +157,9 @@ public class Dbstart extends JFrame implements ActionListener{
 		case "Employee":
 			userType[0] = "Elogin";
 			userType[1] = "Employee";
+			break;
+		case "signup":
+			new SignUpUI();
 			break;
 		default:
 			break;
