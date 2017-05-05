@@ -1,5 +1,3 @@
-//Don't mind me, just testing git
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
