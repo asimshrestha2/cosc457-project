@@ -17,6 +17,7 @@ public class RewardsUI extends JFrame{
         try{
         	htmlTable = "<table><tr><th>Date</th><th>Points Earned</th><th>Total Point</th></tr>";
 	        ResultSet rels = dbconnection.executeQuary("select * from Staff;");
+	        //Loops From the Data returned
 			while(rels.next()){
 				System.out.print(rels.getString("fname"));
 				System.out.print("\t");
@@ -36,3 +37,4 @@ public class RewardsUI extends JFrame{
         setVisible(true);
 	}
 }
+

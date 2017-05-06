@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,12 +11,15 @@ public class SignUpUI extends JFrame implements ActionListener{
 	private JTextField emailText, passwordText, cpasswordText, fName, midInitial, lName,
 	 adstreet, adcity, adzip, adState, phoneNumber, addPhoneNumber, birthDate, anniDate;
 	
+	private JLabel errorL;
+	
 	public SignUpUI(){
 		super("Sign Up");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         setLayout(new GridLayout(0, 1));
         JPanel listPane = new JPanel();
+                
         listPane.setLayout(new BoxLayout(listPane, BoxLayout.Y_AXIS));
         JPanel textFieldPanel = new JPanel(new GridLayout(0, 2, 15, 10));
         //All the sign up fields
@@ -33,46 +37,144 @@ public class SignUpUI extends JFrame implements ActionListener{
 		addPhoneNumber = new JTextField(12);
 		birthDate = new JTextField(12);
 		anniDate = new JTextField(12);
-		
-		textFieldPanel.add(new JLabel("Email:"));
+        
+		textFieldPanel.add(new JLabel("Email:") {
+			@Override
+			public void setForeground(Color fg) {
+				// TODO Auto-generated method stub
+				super.setForeground(Color.WHITE);
+			}
+		});
 		textFieldPanel.add(emailText);
-		textFieldPanel.add(new JLabel("Password:"));
+		textFieldPanel.add(new JLabel("Password:"){
+			@Override
+			public void setForeground(Color fg) {
+				// TODO Auto-generated method stub
+				super.setForeground(Color.WHITE);
+			}
+		});
 		textFieldPanel.add(passwordText);
-		textFieldPanel.add(new JLabel("Confirm Password:"));
+		textFieldPanel.add(new JLabel("Confirm Password:"){
+			@Override
+			public void setForeground(Color fg) {
+				// TODO Auto-generated method stub
+				super.setForeground(Color.WHITE);
+			}
+		});
 		textFieldPanel.add(cpasswordText);
-		textFieldPanel.add(new JLabel("First Name:"));
+		textFieldPanel.add(new JLabel("First Name:"){
+			@Override
+			public void setForeground(Color fg) {
+				// TODO Auto-generated method stub
+				super.setForeground(Color.WHITE);
+			}
+		});
 		textFieldPanel.add(fName);
-		textFieldPanel.add(new JLabel("Middle Initial:"));
+		textFieldPanel.add(new JLabel("Middle Initial:"){
+			@Override
+			public void setForeground(Color fg) {
+				// TODO Auto-generated method stub
+				super.setForeground(Color.WHITE);
+			}
+		});
 		textFieldPanel.add(midInitial);
-		textFieldPanel.add(new JLabel("Last Name:"));
+		textFieldPanel.add(new JLabel("Last Name:"){
+			@Override
+			public void setForeground(Color fg) {
+				// TODO Auto-generated method stub
+				super.setForeground(Color.WHITE);
+			}
+		});
 		textFieldPanel.add(lName);
-		textFieldPanel.add(new JLabel("Street:"));
+		textFieldPanel.add(new JLabel("Street:"){
+			@Override
+			public void setForeground(Color fg) {
+				// TODO Auto-generated method stub
+				super.setForeground(Color.WHITE);
+			}
+		});
 		textFieldPanel.add(adstreet);
-		textFieldPanel.add(new JLabel("City:"));
+		textFieldPanel.add(new JLabel("City:"){
+			@Override
+			public void setForeground(Color fg) {
+				// TODO Auto-generated method stub
+				super.setForeground(Color.WHITE);
+			}
+		});
 		textFieldPanel.add(adcity);
-		textFieldPanel.add(new JLabel("Zip Code:"));
+		textFieldPanel.add(new JLabel("Zip Code:"){
+			@Override
+			public void setForeground(Color fg) {
+				// TODO Auto-generated method stub
+				super.setForeground(Color.WHITE);
+			}
+		});
 		textFieldPanel.add(adzip);
-		textFieldPanel.add(new JLabel("State:"));
+		textFieldPanel.add(new JLabel("State:"){
+			@Override
+			public void setForeground(Color fg) {
+				// TODO Auto-generated method stub
+				super.setForeground(Color.WHITE);
+			}
+		});
 		textFieldPanel.add(adState);
-		textFieldPanel.add(new JLabel("Phone Number:"));
+		textFieldPanel.add(new JLabel("Phone Number:"){
+			@Override
+			public void setForeground(Color fg) {
+				// TODO Auto-generated method stub
+				super.setForeground(Color.WHITE);
+			}
+		});
 		textFieldPanel.add(phoneNumber);
-		textFieldPanel.add(new JLabel("Additional Phone Number:"));
+		textFieldPanel.add(new JLabel("Additional Phone Number:"){
+			@Override
+			public void setForeground(Color fg) {
+				// TODO Auto-generated method stub
+				super.setForeground(Color.WHITE);
+			}
+		});
 		textFieldPanel.add(addPhoneNumber);
-		textFieldPanel.add(new JLabel("Birth Date:"));
+		textFieldPanel.add(new JLabel("Birth Date:"){
+			@Override
+			public void setForeground(Color fg) {
+				// TODO Auto-generated method stub
+				super.setForeground(Color.WHITE);
+			}
+		});
 		textFieldPanel.add(birthDate);
-		textFieldPanel.add(new JLabel("Anniversary Date:"));
+		textFieldPanel.add(new JLabel("Anniversary Date:"){
+			@Override
+			public void setForeground(Color fg) {
+				// TODO Auto-generated method stub
+				super.setForeground(Color.WHITE);
+			}
+		});
 		textFieldPanel.add(anniDate);
 		textFieldPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
+		
+		textFieldPanel.setBackground(SessionData.getBgColor());
+		listPane.setBackground(SessionData.getBgColor());
+		setBackground(SessionData.getBgColor());
 		
 		listPane.add(textFieldPanel);
 		
 		JButton signUpBtn = new JButton("Sign Up");
 		signUpBtn.addActionListener(this);
 		signUpBtn.setActionCommand("signupmain");
+                
+        JButton backBtn = new JButton("Back");
+		backBtn.addActionListener(this);
+		backBtn.setActionCommand("backback");
 		
+		listPane.add(backBtn);
 		listPane.add(signUpBtn);
-		add(listPane);
 		
+		errorL = new JLabel(" ", SwingConstants.CENTER);
+        errorL.setBorder(BorderFactory.createEmptyBorder(0,0,10,0));
+        errorL.setForeground(Color.RED);
+		
+		listPane.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
+		add(listPane);
 		pack();
         setVisible(true);
 	}
@@ -101,14 +203,14 @@ public class SignUpUI extends JFrame implements ActionListener{
 					, anniDateS = anniDate.getText();
 			
 			
-			if(emailText.getText() != "" &&
-			   passwordText.getText() != "" &&
-			   cpasswordText.getText().equals(passwordText.getText()) &&
+			if(emailText.getText() != "" && passwordText.getText() != "" && cpasswordTextS.equals(passwordTextS) &&
 			   fName.getText() != "" && midInitial.getText() != "" && lName.getText() != "" &&
 			   adstreet.getText() != "" && adcity.getText() != "" && adzip.getText() != "" && adState.getText() != "" &&
 			   phoneNumber.getText() != "" && addPhoneNumber.getText() != "" && 
 			   birthDate.getText() != "" && anniDate.getText() != ""){
 				allowE = true;
+			} else {
+				errorL.setText("Please Complete the Form.");
 			}
 			
 			if(allowE){
@@ -129,5 +231,9 @@ public class SignUpUI extends JFrame implements ActionListener{
 				}
 			}
 		}
+        if(cmd.equals("backback")){
+            //Go back
+        	dispose();
+        }
 	}
 }

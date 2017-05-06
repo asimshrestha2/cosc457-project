@@ -1,3 +1,4 @@
+
 import java.sql.*;
 
 import java.awt.*;
@@ -7,13 +8,13 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class Dbstart extends JFrame implements ActionListener{
-	DBConnection dbconnection = new DBConnection();
-	JTextField userText;
+    DBConnection dbconnection = new DBConnection();
+    JTextField userText;
     JPasswordField passWord;
     JLabel errorL;
     JRadioButton customerBtn;
     JRadioButton employeeBtn;
-	String[] userType = {"",""};
+    String[] userType = {"",""};
 	
 	public static void main(String[] args) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException{
 		/* This how to execute quary and get the result:
@@ -44,21 +45,33 @@ public class Dbstart extends JFrame implements ActionListener{
         // Add a layout manager so that the button is not placed on top of the label
 		JPanel inputPanel = new JPanel(new GridLayout(0, 1));
 		
+        inputPanel.setBackground(SessionData.getBgColor());
+                
         setLayout(new BorderLayout(5,5));
         inputPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         // Add a label and a button
         userText = new JTextField(12);
         passWord = new JPasswordField(12);
+        
         JButton loginBtn = new JButton("Login");
         JButton signupBtn = new JButton("Sign Up");
+        JButton menuBtn = new JButton("Menu");
+        JButton infoBtn = new JButton("Info");
+        
         errorL = new JLabel(" ", SwingConstants.CENTER);
         errorL.setBorder(BorderFactory.createEmptyBorder(0,0,10,0));
         errorL.setForeground(Color.RED);
+        errorL.setBackground(SessionData.getBgColor());
 
         //Setting Up the RadioButtons
         customerBtn = new JRadioButton("Customer");
         employeeBtn = new JRadioButton("Employee");
         
+        customerBtn.setForeground(Color.WHITE);
+        employeeBtn.setForeground(Color.WHITE);
+        customerBtn.setBackground(SessionData.getBgColor());
+        employeeBtn.setBackground(SessionData.getBgColor());
+
         customerBtn.addActionListener(this);
         employeeBtn.addActionListener(this);
         
@@ -73,18 +86,37 @@ public class Dbstart extends JFrame implements ActionListener{
         radioPanel.add(customerBtn);
         radioPanel.add(employeeBtn);
         
-        JPanel btnPanel = new JPanel(new GridLayout(1, 0));
+        JPanel btnPanel = new JPanel(new GridLayout(1, 0, 10, 10));
+        btnPanel.setBackground(SessionData.getBgColor());
+
         btnPanel.add(loginBtn);
         btnPanel.add(signupBtn);
+        btnPanel.add(menuBtn);
+        btnPanel.add(infoBtn);
         
         loginBtn.addActionListener(this);
         loginBtn.setActionCommand("login");
+        
         signupBtn.addActionListener(this);
         signupBtn.setActionCommand("signup");
         
-        inputPanel.add(new JLabel("Username: "));
+        menuBtn.addActionListener(this);
+        menuBtn.setActionCommand("menu");
+        
+        infoBtn.addActionListener(this);
+        infoBtn.setActionCommand("info");
+        
+        inputPanel.add(new JLabel("Username: "){
+        	public void setForeground(Color fg) {
+        		super.setForeground(Color.WHITE);
+        	}
+        });
         inputPanel.add(userText);
-        inputPanel.add(new JLabel("Password: "));
+        inputPanel.add(new JLabel("Password: "){
+        	public void setForeground(Color fg) {
+        		super.setForeground(Color.WHITE);
+        	}
+        });
         inputPanel.add(passWord);
         inputPanel.add(radioPanel);
         inputPanel.add(btnPanel);
@@ -92,7 +124,7 @@ public class Dbstart extends JFrame implements ActionListener{
         // Arrange the components inside the window
         add(inputPanel, BorderLayout.CENTER);
         add(errorL, BorderLayout.PAGE_END);
-        
+        setBackground(SessionData.getBgColor());
         pack();
         setLocationRelativeTo(null);
 	}
@@ -161,6 +193,12 @@ public class Dbstart extends JFrame implements ActionListener{
 		case "signup":
 			new SignUpUI();
 			break;
+        case "menu":
+            new MenuGUI();
+            break;
+        case "info":
+            new InfoGUI();
+            break;
 		default:
 			break;
 		}
